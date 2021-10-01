@@ -20,12 +20,13 @@ const allowCors = (fn) => async (req, res) => {
 
 const handler = async (req, res) => {
   try {
+    res.setHeader('Cache-Control', 's-maxage=86400');
     const result = await axios.get(
       'https://widget.trustpilot.com/trustbox-data/53aa8912dec7e10d38f59f36?businessUnitId=590b073c0000ff0005a1c9db&locale=en-GB&reviewLanguages=en&reviewStars=4%2C5&includeReviews=true&reviewsPerPage=15'
     );
     res.status(200).json(result.data);
   } catch (e) {
-    res.status(404);
+    res.status(403);
   }
 };
 
